@@ -13,6 +13,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Avatar, IconButton, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import { deepOrange } from '@mui/material/colors';
 
 export const DrawerMenu = () => {
     const [open, setOpen] = React.useState(false);
@@ -36,7 +37,7 @@ export const DrawerMenu = () => {
             <ListItem disablePadding>
             <ListItemButton>
             <Box  sx={{  display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Avatar>HR</Avatar>
+                <Avatar sx={{ bgcolor: deepOrange[500] }}>HR</Avatar>
                 <Typography variant="body1" sx={{ ml: 2 }}>
                     Hombre Radical
                 </Typography>
@@ -59,11 +60,11 @@ export const DrawerMenu = () => {
             edge="start"
             color="secondary"
             aria-label="menu"
-            sx={{ mr: 2 }}
+            
           >
             <MenuIcon />
         </IconButton>
-      <Drawer open={open} onClose={toggleDrawer(false)}>
+      <Drawer anchor='right' open={open} onClose={toggleDrawer(false)}>
         {DrawerList}
       </Drawer>
     </div>
