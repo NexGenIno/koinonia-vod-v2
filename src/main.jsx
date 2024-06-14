@@ -11,6 +11,8 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+import { useItems, ItemsProvider } from './ItemsContext.jsx';
+
 
 
 const theme = createTheme({
@@ -23,6 +25,7 @@ const theme = createTheme({
       main: '#9f861b',
     },
     background: {
+      main: '#000000',
       paper: '#f7f7f7',
     },
   },
@@ -33,7 +36,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <CssBaseline />
     <BrowserRouter>
     <ThemeProvider theme={theme}>
+    <ItemsProvider>
       <App />
+      </ItemsProvider>
     </ThemeProvider>
     </BrowserRouter>
 

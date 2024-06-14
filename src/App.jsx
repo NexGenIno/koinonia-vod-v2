@@ -24,7 +24,7 @@ function App() {
           <Routes>
             
               <Route index element={<Home />} />
-              <Route element={<Test />} path='/video' />
+              <Route element={<Test />} path='/video/:id' />
               
             
           </Routes>
