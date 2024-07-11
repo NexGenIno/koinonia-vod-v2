@@ -4,6 +4,8 @@ import { NavBar } from './components/NavBar'
 import { Home } from './pages/Home'
 import { Test } from './pages/Test'
 import { Route, Routes } from 'react-router-dom'
+import Programas from './pages/Programas'
+import TemporadaComponent from './pages/TemporadaComponent'
 
 function App() {
 
@@ -24,7 +26,9 @@ function App() {
           <Routes>
             
               <Route index element={<Home />} />
-              <Route element={<Test />} path='/video/:id' />
+              <Route element={<Programas />} path='/programa/:id' />
+              <Route element={<TemporadaComponent />} path='/temporada/:id' />
+              <Route element={<Test />} path='/capitulo/:id' />
               
             
           </Routes>

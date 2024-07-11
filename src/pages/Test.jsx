@@ -4,38 +4,58 @@ import { Box, Typography, useTheme } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useItems } from '../ItemsContext';
 import VideoPlayer2 from '../components/VideoPlayer2';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCapituloAsync } from '../store/slices/videos/videosSlice';
 
 export const Test = () => {
-    const { state: initialItems } = useItems(); // Obtenemos los datos iniciales del contexto
+    
     const { id } = useParams();
-    const [video, setVideo] = useState(null); // Estado local para el video
-
-    useEffect(() => {
-        // Buscamos el video correspondiente al ID
-        const foundVideo = initialItems.find(item => item.id == id);
-        setVideo(foundVideo); // Actualizamos el estado local con el video encontrado
-    }, [initialItems, id]); // Dependencias: initialItems (datos iniciales) y id (ID de la URL)
 
     const theme = useTheme();
+    const dispatch = useDispatch();
+    const capitulo = useSelector((state) => state.videos.capitulo);
+    const status = useSelector((state) => state.videos.status);
+    const error = useSelector((state) => state.videos.error);
+
+    useEffect(() => {
+        dispatch(fetchCapituloAsync(parseInt(id)));
+    }, [dispatch, id]);
+
+    if (status === 'loading') {
+        return <div>Loading...</div>;
+    }
+
+    if (status === 'failed') {
+        return <div>Error: {error}</div>;
+    }
+    
+    
     
     return (
         <>
             <Box display="flex" flexDirection="column" alignItems="center">
+
+            {capitulo && (
                 <Box sx={{
                     width: '100%',
                     [theme.breakpoints.up('md')]: {
-                        width: '750px',
+                        width: '70%',
                     },
                 }}>
-                    <VideoPlayer2 url={video ? video.url_video : ''} titulo={video ? video.title : ''} /> {/* Verificamos si hay un video antes de renderizar el reproductor */}
+                    <VideoPlayer2 url={capitulo.url_video} titulo={capitulo.title} /> 
                     <Box mt={2} p={1}>
-                        <Typography variant='h4'>{video ? video.title : ''}</Typography> {/* Verificamos si hay un video antes de renderizar el título */}
-                        <Typography variant='body1'>{video ? video.description : ''}</Typography> {/* Verificamos si hay un video antes de renderizar la descripción */}
+                        <Typography variant='h4'>{capitulo.title}</Typography> 
+                        <Typography variant='body1'>{capitulo.description}</Typography> 
                     </Box>
                 </Box>
+            )}
+                
             </Box>
         </>
     );
 };
 
 export default Test;
+
+
+

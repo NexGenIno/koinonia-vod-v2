@@ -13,6 +13,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { useItems, ItemsProvider } from './ItemsContext.jsx';
 
+import { store } from './store/store'
+import { Provider } from 'react-redux'
+
 
 
 const theme = createTheme({
@@ -22,7 +25,8 @@ const theme = createTheme({
       main: '#000000',
     },
     secondary: {
-      main: '#9f861b',
+      // main: '#9f861b',
+      main: 'rgb(205,130,45,100)',
     },
     background: {
       main: '#000000',
@@ -33,14 +37,18 @@ const theme = createTheme({
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <>
+    
+    <Provider store={store}>
     <CssBaseline />
     <BrowserRouter>
     <ThemeProvider theme={theme}>
-    <ItemsProvider>
+    
       <App />
-      </ItemsProvider>
+    
     </ThemeProvider>
+    
     </BrowserRouter>
+    </Provider>
 
     </>
   
